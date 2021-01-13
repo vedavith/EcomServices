@@ -21,5 +21,6 @@ namespace CrudUsingReact.Models
         public Nullable<decimal> ProductPrice { get; set; }
         public byte[] CreatedOn { get; set; }
         public Nullable<System.DateTime> ModifiedOn { get; set; }
+        public string ProductCategory { get; set; }
     }
 }

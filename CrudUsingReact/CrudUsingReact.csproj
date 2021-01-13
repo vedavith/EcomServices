@@ -219,8 +219,6 @@
       <DependentUpon>Ecom.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Response.cs" />
-    <Compile Include="Models\Products.cs" />
-    <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

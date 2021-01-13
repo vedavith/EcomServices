@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="EcomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="EcomModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Products">
@@ -16,6 +16,7 @@ warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key def
           <Property Name="ProductName" Type="nvarchar(max)" />
           <Property Name="ProductDescription" Type="nvarchar(max)" />
           <Property Name="ProductPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ProductCategory" Type="nvarchar" MaxLength="50" />
           <Property Name="CreatedOn" Type="timestamp" StoreGeneratedPattern="Computed" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
@@ -27,13 +28,13 @@ warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key def
     [Products].[ProductName] AS [ProductName], 
     [Products].[ProductDescription] AS [ProductDescription], 
     [Products].[ProductPrice] AS [ProductPrice], 
+    [Products].[ProductCategory] AS [ProductCategory], 
     [Products].[CreatedOn] AS [CreatedOn], 
     [Products].[ModifiedOn] AS [ModifiedOn]
     FROM [dbo].[Products] AS [Products]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="EcomModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -48,6 +49,7 @@ warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key def
           <Property Name="ProductPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="CreatedOn" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="ModifiedOn" Type="DateTime" Precision="3" />
+          <Property Name="ProductCategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="EcomEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -61,6 +63,7 @@ warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key def
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="EcomModel.Product">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ProductCategory" ColumnName="ProductCategory" />
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="ProductUid" ColumnName="ProductUid" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
