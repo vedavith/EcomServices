@@ -20,6 +20,22 @@ warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key def
           <Property Name="CreatedOn" Type="timestamp" StoreGeneratedPattern="Computed" />
           <Property Name="ModifiedOn" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ecom.dbo.UserLogin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="UserType" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserType" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="ModifiedOn" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
         <EntityContainer Name="EcomModelStoreContainer">
           <EntitySet Name="Products" EntityType="Self.Products" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -32,6 +48,16 @@ warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key def
     [Products].[CreatedOn] AS [CreatedOn], 
     [Products].[ModifiedOn] AS [ModifiedOn]
     FROM [dbo].[Products] AS [Products]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserLogin].[Id] AS [Id], 
+    [UserLogin].[UserName] AS [UserName], 
+    [UserLogin].[Password] AS [Password], 
+    [UserLogin].[UserType] AS [UserType], 
+    [UserLogin].[CreatedOn] AS [CreatedOn], 
+    [UserLogin].[ModifiedOn] AS [ModifiedOn]
+    FROM [dbo].[UserLogin] AS [UserLogin]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -53,7 +79,22 @@ warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key def
         </EntityType>
         <EntityContainer Name="EcomEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="UserLogins" EntityType="EcomModel.UserLogin" />
         </EntityContainer>
+        <EntityType Name="UserLogin">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="Password" />
+            <PropertyRef Name="UserType" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserType" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedOn" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -71,6 +112,18 @@ warning 6002: The table/view 'Ecom.dbo.Products' does not have a primary key def
                 <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="EcomModel.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="ModifiedOn" ColumnName="ModifiedOn" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
